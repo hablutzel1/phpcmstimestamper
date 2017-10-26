@@ -3,6 +3,8 @@ phpcmstimestamper
 
 This PHP project allows to append an RFC 3161 timestamp to an existing CMS signature.
 
+See too https://blobfish.pe/blog/add-rfc-3161-timestamp-to-existing-pkcs-7cms-signature-in-php/.
+
 Basic usage
 -----------
 

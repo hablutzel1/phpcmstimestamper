@@ -8,7 +8,7 @@ See too https://blobfish.pe/blog/add-rfc-3161-timestamp-to-existing-pkcs-7cms-si
 Basic usage
 -----------
 
-From the demo file `main.php`:
+From the working sample `demo.php`:
 
 ```php
 <?php

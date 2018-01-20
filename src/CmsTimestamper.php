@@ -1,6 +1,7 @@
 <?php
 
-require_once 'vendor/autoload.php';
+namespace Blobfish;
+
 use phpseclib\File\ASN1;
 
 class CmsTimestamper
@@ -24,6 +25,7 @@ class CmsTimestamper
      * @param $originalCms string PEM encoded original CMS
      * @param $tsaUrl
      * @return string updated CMS structure encoded as PEM
+     * @throws \Exception if there is any failure retrieving the TST
      */
     public static function addTimestampToCms($originalCms, $tsaUrl)
     {
@@ -44,7 +46,7 @@ class CmsTimestamper
         $descriptors = array(
             0 => array("pipe", "r"),
             1 => array("pipe", "w"),
-            2 => array("file", "/dev/null", "w")
+            2 => array("pipe", "w")
         );
         $pipes = array();
         $process = proc_open($processTsQueryCommand, $descriptors, $pipes);
@@ -52,7 +54,13 @@ class CmsTimestamper
         fclose($pipes[0]);
         $tstBytes = stream_get_contents($pipes[1]);
         fclose($pipes[1]);
-        proc_close($process);
+        $stderr = stream_get_contents($pipes[2]);
+        fclose($pipes[2]);
+        $exitStatus = proc_close($process);
+        unlink($timestampResponseTempFile);
+        if ($exitStatus != 0) {
+            throw new \Exception("Failure retrieving TST: " . $stderr);
+        }
 
         // Updating the CMS with the retrieved timestamp.
         $updatedContentInfo = [

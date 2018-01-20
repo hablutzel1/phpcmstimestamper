@@ -19,3 +19,8 @@ MIIFiAYJKoZIhvcNAQcCoIIFeTCCBXUCAQExDTALBglghkgBZQMEAgEwHQYJKoZI
 -----END CMS-----";
 $updatedCms = CmsTimestamper::addTimestampToCms($originalCmsAsPem, "http://tsa.starfieldtech.com");
 ```
+
+TODOS
+----------
+
+- Check the ASN.1 library PHPASN1 (https://github.com/FGrosse/PHPASN1) and check if it would be a good idea to migrate to it instead of keep using phpseclib.

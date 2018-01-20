@@ -1,6 +1,8 @@
 <?php
 
-require_once 'CmsTimestamper.php';
+require_once 'vendor/autoload.php';
+
+use Blobfish\CmsTimestamper;
 
 $originalCmsAsPem = "-----BEGIN CMS-----
 MIIFiAYJKoZIhvcNAQcCoIIFeTCCBXUCAQExDTALBglghkgBZQMEAgEwHQYJKoZI
